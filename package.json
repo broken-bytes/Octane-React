@@ -1,6 +1,6 @@
 {
   "name": "@octane-rl/react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@octane-rl/core": "0.0.3",
+    "@octane-rl/core": "0.0.4",
     "react": "^19.2.5"
   },
   "devDependencies": {

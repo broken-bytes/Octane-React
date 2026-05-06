@@ -1,4 +1,5 @@
 export { useOctaneState } from './hooks/use-octane-state'
 export { useOctaneEvents, type OctaneEventMap } from './hooks/use-octane-events'
+export { useOctaneMeta } from './hooks/use-octane-meta'
 export { configureOctane, type OctaneConfig } from './internal/client'
 export { EventType, StatFeedEventType } from '@octane-rl/core'

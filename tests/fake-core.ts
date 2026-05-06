@@ -32,6 +32,18 @@ export enum StatFeedEventType {
   playmaker = 9,
 }
 
+export interface OctaneMetaSide {
+  name: string
+  logo: string
+  wins: number
+}
+
+export interface OctaneMeta {
+  bestOf: number
+  blue: OctaneMetaSide
+  orange: OctaneMetaSide
+}
+
 type Handler<T> = (arg: T) => void
 
 let instances: OctaneCore[] = []
@@ -42,6 +54,7 @@ export class OctaneCore {
   closeCalls = 0
   eventHandlers = new Set<Handler<any>>()
   stateHandlers = new Set<Handler<any>>()
+  metaHandlers = new Set<Handler<any>>()
 
   constructor(config: { port: number }) {
     this.config = config
@@ -59,6 +72,13 @@ export class OctaneCore {
     this.stateHandlers.add(h)
     return () => {
       this.stateHandlers.delete(h)
+    }
+  }
+
+  onMeta(h: Handler<any>): () => void {
+    this.metaHandlers.add(h)
+    return () => {
+      this.metaHandlers.delete(h)
     }
   }
 
@@ -88,6 +108,10 @@ export class OctaneCore {
 
   emitState(s: any): void {
     for (const h of [...this.stateHandlers]) h(s)
+  }
+
+  emitMeta(m: any): void {
+    for (const h of [...this.metaHandlers]) h(m)
   }
 }
 

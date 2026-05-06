@@ -4,7 +4,11 @@
     "rootDir": "..",
     "noEmit": true,
     "types": ["jest", "node"],
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@octane-rl/core": ["../../Octane-Core/src/index.ts"]
+    }
   },
   "include": ["./**/*", "../src/**/*"]
 }
