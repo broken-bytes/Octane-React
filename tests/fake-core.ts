@@ -21,6 +21,15 @@ export enum EventType {
 
 export enum StatFeedEventType {
   demolish = 0,
+  shot = 1,
+  goal = 2,
+  longGoal = 3,
+  hatTrick = 4,
+  save = 5,
+  epicSave = 6,
+  savior = 7,
+  assist = 8,
+  playmaker = 9,
 }
 
 type Handler<T> = (arg: T) => void
