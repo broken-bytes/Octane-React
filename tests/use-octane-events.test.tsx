@@ -65,6 +65,24 @@ describe('useOctaneEvents', () => {
     expect(result.current).toBe(clock)
   })
 
+  test('without a filter, lifecycle events (replay/podium/match) are excluded', () => {
+    const { result } = renderHook(() => useOctaneEvents())
+    const core = getInstances()[0]
+
+    act(() => core.emitEvent({ type: EventType.goalReplayStart, matchId: 'm1' }))
+    act(() => core.emitEvent({ type: EventType.goalReplayWillEnd, matchId: 'm1' }))
+    act(() => core.emitEvent({ type: EventType.goalReplayEnd, matchId: 'm1' }))
+    act(() => core.emitEvent({ type: EventType.replayCreated, matchId: 'm1' }))
+    act(() => core.emitEvent({ type: EventType.podiumStart, matchId: 'm1' }))
+    act(() => core.emitEvent(matchPausedEvent()))
+    act(() => core.emitEvent({ type: EventType.matchEnded, matchId: 'm1', winnerTeamId: 0 }))
+    expect(result.current).toBeNull()
+
+    const goal = goalEvent('Squishy')
+    act(() => core.emitEvent(goal))
+    expect(result.current).toBe(goal)
+  })
+
   test('with a type filter, ignores events of other types', () => {
     const { result } = renderHook(() => useOctaneEvents(EventType.goalScored))
     const core = getInstances()[0]
